@@ -4,23 +4,19 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        # Dictionary to map closing brackets to their corresponding opening brackets
         bracket_map = {')': '(', '}': '{', ']': '['}
         stack = []
         
         for char in s:
-            if char in bracket_map:
-                # Pop from stack if it's not empty, otherwise assign a dummy value
-                top_element = stack.pop() if stack else '#'
-                
-                # Check if the top element matches the corresponding opening bracket
+            if char in bracket_map.values():
+                stack.append(char)
+            elif char in bracket_map.keys():
+                if not stack:
+                    return False
+                top_element = stack.pop()
                 if bracket_map[char] != top_element:
                     return False
-            else:
-                # Push the opening bracket onto the stack
-                stack.append(char)
         
-        # If the stack is empty, all opening brackets have been closed properly
         return not stack
 
 
